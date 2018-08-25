@@ -35,32 +35,35 @@ yarn run db:seed
 build TypeScript.
 
 ```
-yarn run build
+yarn run watch
 ```
 
 Start the server at 3000 port.
 
 ```
-yarn start
+yarn run dev
 ```
 
 ## Directories
 
 - scripts
-  Any scripts which can be called via yarn command should be located.
 
-  - migrations
-  - seeds
-  - create db tasks
+  - Any scripts which can be called via yarn command should be located.
+    - migrations
+    - seeds
+    - create db tasks
 
 - middlewares
-  Node.js middleware, such as the functions which checks user's session should be located.
+
+  - Node.js middleware, such as the functions which checks user's session should be located.
 
 - controllers
-  All Node.js (Express) handler should be located.
+
+  - All Node.js (Express) handler should be located.
 
 - helpers
-  Helper functions used in all over the app should be located.
+
+  - Helper functions used in all over the app should be located.
 
 - config
-  All configuration such as database, routing, port number should be located.
+  - All configurations such as database, routing, port number should be located.

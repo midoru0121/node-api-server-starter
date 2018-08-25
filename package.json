@@ -5,11 +5,13 @@
   "main": "",
   "scripts": {
     "build": "tsc",
+    "watch": "tsc -w",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "db:create": "yarn run build && NODE_PATH=./app node app/scripts/createDatabases.js",
     "db:migrate": "yarn run build && NODE_PATH=./app node app/scripts/migrations.js",
     "db:seed": "yarn run build && NODE_PATH=./app node app/scripts/seeds.js",
-    "start": "yarn run build && NODE_PATH=./app node app/index.js"
+    "start": "yarn run build && NODE_PATH=./app node app/index.js",
+    "dev": "NODE_PATH=./app nodemon --watch app node app/index.js && yarn run start"
   },
   "author": "AtaruOhto",
   "license": "MIT",
@@ -29,6 +31,7 @@
     "@types/jsonwebtoken": "^7.2.8",
     "@types/sequelize": "^4.27.24",
     "@types/winston": "^2.4.4",
+    "nodemon": "^1.18.3",
     "prettier": "^1.14.2",
     "sequelize-cli": "^4.1.0",
     "ts-node": "^7.0.1",
