@@ -1,5 +1,5 @@
 import { sequelizeInstance } from 'config/database';
-import { seedUsers } from 'scripts/seeds/user';
+import { seedUsers } from './seeds/user';
 
 (async () => {
   await seedUsers();

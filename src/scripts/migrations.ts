@@ -1,5 +1,5 @@
 import { sequelizeInstance } from 'config/database';
-import { createUserMigrate } from 'scripts/migrations/createUser';
+import { createUserMigrate } from './migrations/createUser';
 
 (async () => {
   await createUserMigrate();

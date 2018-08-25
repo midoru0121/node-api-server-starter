@@ -3,4 +3,6 @@
 */
 export const path = {
   root: '/',
+  sessions: '/sessions/',
+  users: '/users/',
 };

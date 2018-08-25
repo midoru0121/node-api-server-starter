@@ -1,6 +1,6 @@
 import winston = require('winston');
 
-import { isProduction } from 'helpers/env';
+import { isProduction } from './env';
 
 /*
 For more details:
