@@ -4,6 +4,6 @@ export DB_NAME_PROD='foo_prod'
 export DB_USER='root'
 export DB_PASS='pass'
 export DB_HOST='127.0.0.1'
-export DB_PORT=3333
+export DB_PORT=3306
 export SECRET_KEY_BASE='very_secure_string'
 export TZ='Asia/Tokyo'
