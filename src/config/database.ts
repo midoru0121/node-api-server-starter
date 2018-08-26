@@ -21,7 +21,7 @@ export const DB_CONFIG = {
   timezone: process.env.TZ,
 };
 
-const getDBName = () => {
+export const getDBName = () => {
   if (isProduction()) {
     return process.env.DB_NAME_PROD;
   }
