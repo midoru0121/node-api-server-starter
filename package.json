@@ -11,7 +11,8 @@
     "db:migrate": "yarn run build && NODE_PATH=./app node app/scripts/migrations.js",
     "db:seed": "yarn run build && NODE_PATH=./app node app/scripts/seeds.js",
     "start": "yarn run build && NODE_PATH=./app node app/index.js",
-    "dev": "NODE_PATH=./app nodemon --watch app node app/index.js && yarn run start"
+    "dev": "NODE_PATH=./app nodemon --watch app node app/index.js && yarn run start",
+    "test": "NODE_PATH=./src NODE_ENV=test mocha --exit -r ts-node/register 'src/**/*spec.ts'"
   },
   "author": "AtaruOhto",
   "license": "MIT",
@@ -29,8 +30,10 @@
     "@types/express": "^4.16.0",
     "@types/helmet": "^0.0.38",
     "@types/jsonwebtoken": "^7.2.8",
+    "@types/mocha": "^5.2.5",
     "@types/sequelize": "^4.27.24",
     "@types/winston": "^2.4.4",
+    "mocha": "^5.2.0",
     "nodemon": "^1.18.3",
     "prettier": "^1.14.2",
     "sequelize-cli": "^4.1.0",
