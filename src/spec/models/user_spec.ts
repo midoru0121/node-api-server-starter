@@ -1,17 +1,24 @@
+import { User } from 'models/user';
 import assert from 'power-assert';
 
-describe('A suite', () => {
-  it('contains spec with an expectation', done => {
-    assert.throws(
-      () => {
-        throw new Error('Wrong value');
-      },
-      (err: any) => {
-        assert.equal(err.message, 'Wrong value');
+const hoge = async (callback: any, ...args: never[]) => {
+  try {
+    callback(...args);
+  } catch (e) {
+    return e;
+  }
+};
 
-        done();
-      },
-      'unexpected error',
-    );
-  });
+describe('A suite', () => {
+  it('contains spec with an expectation', () =>
+    new Promise(async (resolve, reject) => {
+      try {
+        await User.create({
+          password: 'foobar',
+        });
+      } catch (e) {
+        assert.ok(e.message.includes('users.name cannot be null'));
+        resolve();
+      }
+    }));
 });
