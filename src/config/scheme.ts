@@ -1,7 +1,7 @@
 /*
   Returns Api Scheme.
-  All Apis defined in the application should call the function and
-  respond with the following scheme.
+  All Apis in the app should call this function
+  and respond with the following scheme.
 */
 export const buildApiScheme = (status: number, data: any) => ({
   data,
