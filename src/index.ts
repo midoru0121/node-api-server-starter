@@ -28,7 +28,10 @@ const startServer = (expressApp: Express) => {
   requireEnvironmentVars();
   applyMiddlewares(expressApp);
   defRoutes(expressApp);
-  listen(expressApp);
+
+  if (!module.parent) {
+    listen(expressApp);
+  }
 };
 
 export const app = express();
