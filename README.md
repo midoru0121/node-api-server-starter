@@ -1,5 +1,7 @@
 # Node Api Server Starter
 
+- <a href="https://github.com/AtaruOhto/node-api-server-starter/blob/master/README.ja.md">日本語</a>
+
 ## Prerequisite
 
 - direnv (https://direnv.net/)
