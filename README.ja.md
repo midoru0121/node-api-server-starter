@@ -29,6 +29,13 @@ TypeScript & Express で記述した Node.js 製 API サーバーのひな形で
 - テストは単一のディレクトリ以下に配置するのではなく、それぞれのテスト対象と同じディレクトリに格納するという方式を取っています。
 - Node.js のコールバックは使わず、Promise と Async Await を使用しています。
 
+### Prerequisite
+
+- Node.js (Version 8 LTS)
+- Yarn
+- direnv
+- MySQL
+
 ### ディレクトリ構成
 
 - config : アプリケーションの設定を格納します。ex. JWT トークンのアルゴリズムやデータベースの設定など
