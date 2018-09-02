@@ -621,7 +621,7 @@ describe(`Framework Controller`, () => {
 });
 ```
 
-下記コマンドでテストが走らせることができます。
+下記コマンドでテストを走らせることができます。
 
 ```shell
 yarn run test
