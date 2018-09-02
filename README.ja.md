@@ -42,7 +42,7 @@ TypeScript & Express で記述した Node.js 製 API サーバーのひな形で
 
 <h2 id="how_to_work">動かしてみる</h2>
 
-```
+```shell
 # リポジトリをクローンします。
 git clone git@github.com:AtaruOhto/node-api-server-starter.git
 cd node-api-server-starter
@@ -57,7 +57,7 @@ cp .envrc.sample .envrc
 secret を生成して、「.envrc」にコピーします。
 出力された文字列、下記の「export SECRET_KEY_BASE=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx」の部分を 「.envrc」に追記します。
 
-```
+```shell
 yarn run secret
 
 # 下記出力を .envrc に追記します。
@@ -66,7 +66,7 @@ yarn run secret
 
 デフォルトでユーザー名は _root_ , パスワードは _pass_ , ホストは _localhost_ ポート番号は _3306 番ポート_ に設定しています。変更する場合には _.envrc_ を編集してください。_DB_USER_, _DB_PASS_, _DB_PORT_, _DB_HOST_ を環境に従って編集します。direnv を使わない場合には OS の環境変数に設定してください。
 
-```
+```shell
 export DB_USER='root'
 export DB_PASS='pass'
 export DB_HOST='127.0.0.1'
@@ -75,7 +75,7 @@ export DB_PORT=3306
 
 データベースをデフォルトの _MySQL_ から変更するには _src/config/dsatabase.ts_ の*dialect*を編集します。
 
-```
+```typescript
 export const DB_CONFIG = {
   ...
   dialect: 'mysql',
@@ -85,13 +85,13 @@ export const DB_CONFIG = {
 
 環境変数を編集して、データベースに接続できるように _.envrc_ を編集したら、下記のコマンドを打って環境変数をロードします。
 
-```
+```shell
 direnv allow
 ```
 
 次にデータベースを作成、マイグレーションを行い、シードを流し込みます。
 
-```
+```shell
 yarn run db:create
 yarn run db:migrate
 yarn run db:seed
@@ -99,19 +99,19 @@ yarn run db:seed
 
 サーバーを起動します。デフォルトでは _3000 番ポート_ で起動します。
 
-```
+```shell
 yarn start
 ```
 
 curl コマンドでアプリに向けて、JWT トークンを発行するようにリクエストします。返ってきた値が API を叩くために必要になる秘密のトークンです。
 
-```
+```shell
 curl -X POST http://localhost:3000/sessions  --data 'name=Erich&password=password'
 ```
 
 下記のようなデータが返ってきます。data の部分 (jwt トークン) はそれぞれ異なった値が返ってきます。
 
-```
+```shell
 {
 	"data":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJoYXNoIjp7Im5hbWUiOiJFcmljaCJ9LCJpYXQiOjE1MzUyMDUzMDIsImV4cCI6MTUzNTI5MTcwMn0.DRCHA1qRwrmpBscw_ZFAde6tBPJEb7IiCso9-mXG2Gk",
 	"status":200
@@ -121,13 +121,13 @@ curl -X POST http://localhost:3000/sessions  --data 'name=Erich&password=passwor
 認証が求められるユーザー一覧取得の API を叩いてみます。
 「Bearer の後、半角スペースを一つ空けて」実際に返ってきた*data* の部分の JWT トークンをサーバー側に送ります。
 
-```
+```shell
 curl -X GET http://localhost:3000/users -H "X-Auth-Token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJoYXNoIjp7Im5hbWUiOiJFcmljaCJ9LCJpYXQiOjE1MzUyMDUzMDIsImV4cCI6MTUzNTI5MTcwMn0.DRCHA1qRwrmpBscw_ZFAde6tBPJEb7IiCso9-mXG2Gk"
 ```
 
 シードで流したユーザー一覧が取得できます。
 
-```
+```shell
 {
 	"data":
 		[
@@ -142,7 +142,7 @@ curl -X GET http://localhost:3000/users -H "X-Auth-Token: Bearer eyJhbGciOiJIUzI
 
 間違ったトークンや不正なリクエストを送ると下記のようなレスポンスが返ってきます。試しにトークンから一文字削除して、誤ったトークンの値を送ってみます。ステータスが 400 のレスポンスが返ってきます。
 
-```
+```shell
 {
 	"data":{},
 	"status":400
@@ -151,14 +151,14 @@ curl -X GET http://localhost:3000/users -H "X-Auth-Token: Bearer eyJhbGciOiJIUzI
 
 下記のコマンドでテストが走ります。テストファイルはテスト対象のファイルと同じディレクトリに格納する形式をとっています。
 
-```
+```shell
 # テストを実行する前にデータベース、テーブル等を作成
 yarn run db:create:test
 yarn run db:migrate:test
 yarn run db:seed:test
 ```
 
-```
+```shell
 yarn run test
 ```
 
@@ -169,7 +169,7 @@ yarn run test
 
 ターミナルで下記コマンドをそれぞれ別タブで起動します。
 
-```
+```shell
 # npmモジュールのインストール
 yarn
 
@@ -189,7 +189,7 @@ _src/models/framework/index.ts_ ファイルを追加します。
 モデルは <a href="http://docs.sequelizejs.com/" target="_blank">sequelize</a>の記法に従っています。
 sequelize については<a href="http://docs.sequelizejs.com/" target="_blank">sequelize</a>こちらをご覧ください。
 
-```
+```typescript
 /* src/models/framework/index.ts */
 
 import Sequelize from 'sequelize';
@@ -236,7 +236,7 @@ export const Framework = sequelizeInstance.define(
 _src/scripts/migrations/createFrameworks.ts_ を追加します。
 <a href="https://github.com/sequelize/cli">sequelize/cli</a> を使う方法もあるのですが、より柔軟性の高い、スクリプトで記述することにしています。
 
-```
+```typescript
 /* src/scripts/migrations/createFrameworks.ts */
 
 import { Framework } from 'models/framework';
@@ -273,7 +273,7 @@ import { createFrameworkMigrate } from './migrations/createFrameworks';
 
 _src/scripts/seeds/frameworks.ts_ にシードデータの追加処理を記述します。
 
-```
+```typescript
 /* src/scripts/seeds/frameworks.ts */
 
 import { Framework } from 'models/framework';
@@ -307,7 +307,7 @@ export const seedFrameworks = () =>
 
 上記で実装した追加処理の呼び出しを記述します。
 
-```
+```typescript
 /* src/scripts/seeds.ts */
 
 import { seedFrameworks } from './seeds/frameworks';
@@ -323,7 +323,7 @@ import { seedFrameworks } from './seeds/frameworks';
 
 下記コマンドを打って、データベースを作成、マイグレーション、シードデータを流し込みます。
 
-```
+```shell
 yarn run  db:create
 yarn run  db:migrate
 yarn run  db:seed
@@ -335,7 +335,7 @@ _src/spec/factories/frameworkFactory.ts_ を作成します。
 
 テストフレームワークは<a href="https://mochajs.org/">Mocha</a>, アサーションライブラリーとして<a href="https://github.com/power-assert-js/power-assert">power-assert</a>を使っています。
 
-```
+```typescript
 /* src/spec/factories/frameworkFactory.ts */
 
 import { Framework } from 'models/framework';
@@ -372,7 +372,7 @@ _src/models/framework/spec.ts_ を記述します。
 
 - テストファイルはテスト対象のファイルと同じディレクトリに配置します。
 
-```
+```typescript
 import { Framework } from 'models/framework';
 import assert from 'power-assert';
 import {
@@ -422,7 +422,7 @@ describe('Framework', () => {
 
 テストを走らせてみます。
 
-```
+```shell
 yarn run db:create:test
 yarn run db:migrate:test
 yarn run db:seed:test
@@ -493,7 +493,7 @@ framework をすべて取得するアクション (frameworksIndex) を定義し
   </tbody>
 </table>
 
-```
+```typescript
 import { Request, Response } from 'express';
 
 import { respondWith } from 'helpers/response';
@@ -514,7 +514,7 @@ export const frameworksIndex = async (req: Request, res: Response) => {
 _src/config/path.ts_ にパスを追加します。
 アプリケーション上で参照されるパスはすべてこのファイルに記述するようにしています。
 
-```
+```typescript
 /* src/config/path.ts */
 
 export const path = {
@@ -527,7 +527,7 @@ export const path = {
 _config/routes.ts_ の*defineRoutes()* にルート定義を追加します。
 アプリケーション上で参照されるルーティングとハンドラーの組み合わせはすべてこのファイルに記述するようにしています。
 
-```
+```typescript
 import { frameworksIndex } from 'controllers/api/v1/frameworks';
 
 export const defineRoutes = (app: Express) => {
@@ -546,13 +546,13 @@ export const defineRoutes = (app: Express) => {
 
 curl コマンド を使って定義したルーティングを叩いてみます。
 
-```
- curl -X GET http://localhost:3000/frameworks
+```shell
+  curl -X GET http://localhost:3000/frameworks
 ```
 
 すると下記のようにシードで流し込んだフレームワーク一覧の JSON データが返ってきます。
 
-```
+```shell
 {"data":
 	[
 		{"id":1,"name":"Express","language":"JavaScript"},
@@ -568,7 +568,7 @@ curl コマンド を使って定義したルーティングを叩いてみま�
 
 - src/controllers/api/v1/frameworks/spec.ts
 
-```
+```typescript
 /* src/controllers/api/v1/frameworks/spec.ts */
 
 import assert from 'power-assert';
@@ -616,6 +616,6 @@ describe(`Framework Controller`, () => {
 
 下記コマンドでテストが走らせることができます。
 
-```
+```shell
 yarn run test
 ```
