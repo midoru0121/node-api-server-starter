@@ -2,7 +2,7 @@
 
 <a href="https://github.com/AtaruOhto/node-api-server-starter/blob/master/README.ja.md">日本語</a>
 
-<!-- ## Summary
+## Summary
 
 Node.js API Server template based on TypeScript.
 
@@ -56,17 +56,24 @@ yarn
 cp .envrc.sample .envrc
 ```
 
-secret を生成して、「.envrc」にコピーします。
-出力された文字列、下記の「export SECRET_KEY_BASE=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx」の部分を 「.envrc」に追記します。
+Please generate a secret string and copy it to .envrc file.
+Also you can set this as environment variable in OS if you like.
 
 ```shell
 yarn run secret
 
-# 下記出力を .envrc に追記します。
+# copy it to .envrc file
 # export SECRET_KEY_BASE=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
-デフォルトでユーザー名は _root_ , パスワードは _pass_ , ホストは _localhost_ ポート番号は _3306 番ポート_ に設定しています。変更する場合には _.envrc_ を編集してください。_DB_USER_, _DB_PASS_, _DB_PORT_, _DB_HOST_ を環境に従って編集します。direnv を使わない場合には OS の環境変数に設定してください。
+Default database settings is as follows:
+
+- User: root
+- Password: pass
+- host: localhost
+- port: 3306
+
+You can override these settings by the editing .envrc file.
 
 ```shell
 export DB_USER='root'
@@ -75,7 +82,9 @@ export DB_HOST='127.0.0.1'
 export DB_PORT=3306
 ```
 
-データベースをデフォルトの _MySQL_ から変更するには _src/config/dsatabase.ts_ の*dialect*を編集します。
+If want to use another database, please edit _dialect_ in _src/config/dsatabase.ts_.
+
+For more details, <a href="http://docs.sequelizejs.com/manual/installation/usage.html#dialects">sequelize manual dialects</a>.
 
 ```typescript
 export const DB_CONFIG = {
@@ -85,13 +94,13 @@ export const DB_CONFIG = {
 };
 ```
 
-環境変数を編集して、データベースに接続できるように _.envrc_ を編集したら、下記のコマンドを打って環境変数をロードします。
+After editing _.envrc_ as database can be connected, type the following command and load environment variables defined in _.envrc_ .
 
 ```shell
 direnv allow
 ```
 
-次にデータベースを作成、マイグレーションを行い、シードを流し込みます。
+Then, create database and migration and put seed data into tables.
 
 ```shell
 yarn run db:create
@@ -99,19 +108,19 @@ yarn run db:migrate
 yarn run db:seed
 ```
 
-サーバーを起動します。デフォルトでは _3000 番ポート_ で起動します。
+Start Node.js server. The server runs at port 3000 as default.
 
 ```shell
 yarn start
 ```
 
-curl コマンドでアプリに向けて、JWT トークンを発行するようにリクエストします。返ってきた値が API を叩くために必要になる秘密のトークンです。
+Let's test. Request the server to issue the JWT token. The returned value is the token which will be used with authentication.
 
 ```shell
 curl -X POST http://localhost:3000/sessions  --data 'name=Erich&password=password'
 ```
 
-下記のようなデータが返ってきます。data の部分 (jwt トークン) はそれぞれ異なった値が返ってきます。
+The following is an example of returned value. data will be different in each time.
 
 ```shell
 {
@@ -120,14 +129,13 @@ curl -X POST http://localhost:3000/sessions  --data 'name=Erich&password=passwor
 }
 ```
 
-認証が求められるユーザー一覧取得の API を叩いてみます。
-「Bearer の後、半角スペースを一つ空けて」実際に返ってきた*data* の部分の JWT トークンをサーバー側に送ります。
+Let's consume API which requires authentication and get all users. Request the server with the string composed by Bearer and blank space and returned value as following:
 
 ```shell
 curl -X GET http://localhost:3000/users -H "X-Auth-Token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJoYXNoIjp7Im5hbWUiOiJFcmljaCJ9LCJpYXQiOjE1MzUyMDUzMDIsImV4cCI6MTUzNTI5MTcwMn0.DRCHA1qRwrmpBscw_ZFAde6tBPJEb7IiCso9-mXG2Gk"
 ```
 
-シードで流したユーザー一覧が取得できます。
+All user put by seed can be fetched.
 
 ```shell
 {
@@ -142,7 +150,7 @@ curl -X GET http://localhost:3000/users -H "X-Auth-Token: Bearer eyJhbGciOiJIUzI
 }
 ```
 
-間違ったトークンや不正なリクエストを送ると下記のようなレスポンスが返ってきます。試しにトークンから一文字削除して、誤ったトークンの値を送ってみます。ステータスが 400 のレスポンスが返ってきます。
+If you send a request with wrong token or any invalid request, following response will be returned.
 
 ```shell
 {
@@ -151,10 +159,10 @@ curl -X GET http://localhost:3000/users -H "X-Auth-Token: Bearer eyJhbGciOiJIUzI
 }
 ```
 
-下記のコマンドでテストが走ります。テストファイルはテスト対象のファイルと同じディレクトリに格納する形式をとっています。
+Testing runs with the command. All spec file is located in the directory in which the test target file is stored.
 
 ```shell
-# テストを実行する前にデータベース、テーブル等を作成
+# Create database and do migration, before run testing.
 yarn run db:create:test
 yarn run db:migrate:test
 yarn run db:seed:test
@@ -164,6 +172,7 @@ yarn run db:seed:test
 yarn run test
 ```
 
+<!--
 <h2 id="how_to_develop">開発してみる</h2>
 
 新しいモデルを追加して、それに対応するマイグレーションやコントローラーを記述することを通して
