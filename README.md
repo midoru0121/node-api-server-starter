@@ -25,16 +25,18 @@ Node.js API Server template based on TypeScript.
 <nav>
   <ul>
     <li><a href="#architecture">Architecture</a></li>
-    <li><a href="#how_to_work">How to work</a></li>
+    <li><a href="#how_to_work">Getting Started</a></li>
     <li><a href="#how_to_develop">How to develop</a></li>
   </ul>
 </nav>
 
 <h2 id="architecture">Architecture</h2>
 
-- Written with functions. Class are hardly used in the app.
-- Test files are located within the directory in which the test target file is located.
-- Wrriten with Promise and Async Await,
+- 100% TypeScript.
+- Auth with JWT.
+- Written with functions. Class are rarely used in the app.
+- Spec files are located within the directory in which the test target file is.
+- Written with Promise and Async Await.
 
 ### Directory Structure
 
@@ -172,33 +174,30 @@ yarn run db:seed:test
 yarn run test
 ```
 
-<!--
-<h2 id="how_to_develop">開発してみる</h2>
+<h2 id="how_to_develop">How to Develop</h2>
 
-新しいモデルを追加して、それに対応するマイグレーションやコントローラーを記述することを通して
-一連の開発方法例を提示します。
+Let's create a new Model and write a controller to handle user request and learn how to develop.
 
-ターミナルで下記コマンドをそれぞれ別タブで起動します。
+Let's run these commands in another Terminal tab.
 
 ```shell
-# npmモジュールのインストール
+# Install npm modules
 yarn
 
-# TypeScriptのwatchビルド
+# TypeScript Watch Build
 yarn run watch
 
-# ソースコード変更を検知してNodeサーバーを自動的に再起動
+# Auto Restart Node Server with source code change detection.
 yarn run dev
 ```
 
-TypeScript のコンパイルエラーがあれば、ターミナル上で通知されます。
+TypeScript compilation errors will be notified in Terminal.
 
-### 新規モデルの追加
+### Add New Model
 
-_src/models/framework/index.ts_ ファイルを追加します。
+Create _src/models/framework/index.ts_ .
 
-モデルは <a href="http://docs.sequelizejs.com/" target="_blank">sequelize</a>の記法に従っています。
-sequelize については<a href="http://docs.sequelizejs.com/" target="_blank">sequelize</a>こちらをご覧ください。
+The way of defining Model depends on <a href="http://docs.sequelizejs.com/" target="_blank">sequelize</a>.
 
 ```typescript
 /* src/models/framework/index.ts */
@@ -242,10 +241,10 @@ export const Framework = sequelizeInstance.define(
 );
 ```
 
-### マイグレーションの追加
+### Add Migration File
 
-_src/scripts/migrations/createFrameworks.ts_ を追加します。
-<a href="https://github.com/sequelize/cli">sequelize/cli</a> を使う方法もあるのですが、より柔軟性の高い、スクリプトで記述することにしています。
+Create _src/scripts/migrations/createFrameworks.ts_ .
+This template doesn't use <a href="https://github.com/sequelize/cli">sequelize/cli</a>. preferring to more flexible scripts.
 
 ```typescript
 /* src/scripts/migrations/createFrameworks.ts */
@@ -263,16 +262,17 @@ export const createFrameworkMigrate = () =>
   });
 ```
 
-_src/scripts/migrations.ts_ から呼び出しを追加します。
+Define call of the script in _src/scripts/migrations.ts_ .
 
 ```
 /* src/scripts/migrations.ts */
 
+/* Add the line */
 import { createFrameworkMigrate } from './migrations/createFrameworks';
 
 (async () => {
   ...
-  /* 追加 */
+  /* Add the line */
   await createFrameworkMigrate();
   ...
 
@@ -280,9 +280,9 @@ import { createFrameworkMigrate } from './migrations/createFrameworks';
 })();
 ```
 
-### シードデータの追加
+### Add Seed Data
 
-_src/scripts/seeds/frameworks.ts_ にシードデータの追加処理を記述します。
+Create _src/scripts/seeds/frameworks.ts_ put seed data into frameworks table.
 
 ```typescript
 /* src/scripts/seeds/frameworks.ts */
@@ -316,23 +316,27 @@ export const seedFrameworks = () =>
   });
 ```
 
-上記で実装した追加処理の呼び出しを記述します。
+Define call of the script above in the _src/scripts/seeds.ts_.
 
 ```typescript
 /* src/scripts/seeds.ts */
 
+/* Add the line */
 import { seedFrameworks } from './seeds/frameworks';
 
 (async () => {
   ...
+
+  /* Add the line */
   await seedFrameworks();
+
   sequelizeInstance.close();
 })();
 ```
 
-### マイグレーション & シードデータの流し込み
+### Execute Migration And Put Seed Data
 
-下記コマンドを打って、データベースを作成、マイグレーション、シードデータを流し込みます。
+Creating database and migrations and putting seed can be done with executing the following commands.
 
 ```shell
 yarn run  db:create
@@ -340,11 +344,11 @@ yarn run  db:migrate
 yarn run  db:seed
 ```
 
-### モデルのテスト
+### Testing Model
 
-_src/spec/factories/frameworkFactory.ts_ を作成します。
+Create _src/spec/factories/frameworkFactory.ts_ .
 
-テストフレームワークは<a href="https://mochajs.org/">Mocha</a>, アサーションライブラリーとして<a href="https://github.com/power-assert-js/power-assert">power-assert</a>を使っています。
+This template adopts <a href="https://mochajs.org/">Mocha</a> as test framework and <a href="https://github.com/power-assert-js/power-assert">power-assert</a> as a assertion library.
 
 ```typescript
 /* src/spec/factories/frameworkFactory.ts */
@@ -377,11 +381,7 @@ export const findOrCreateTestFramework = (otherAttrs: any) =>
   });
 ```
 
-モデルのテストを記述します。
-
-_src/models/framework/spec.ts_ を記述します。
-
-- テストファイルはテスト対象のファイルと同じディレクトリに配置します。
+Then write _src/models/framework/spec.ts_ . We put a spec file into the directory in which the test target is.
 
 ```typescript
 import { Framework } from 'models/framework';
@@ -431,7 +431,7 @@ describe('Framework', () => {
 });
 ```
 
-テストを走らせてみます。
+And testing can be done with the commands below.
 
 ```shell
 yarn run db:create:test
@@ -440,68 +440,71 @@ yarn run db:seed:test
 yarn run test
 ```
 
-正常に Framework モデルが作成できることと、NOTNULL 制約がかかっている \_language\* を欠いた Frmework モデルを create しようとすると例外が起きることをチェックしています。
+We check the Framework Model can be created successfully and exception are thrown when invalid Framework is tried to be created.
 
-### コントローラーへのアクションの追加
+### Add Action to Controller
 
-framework をすべて取得するアクション (frameworksIndex) を定義します。 _/ src/controllers/api/v1/frameworks.ts /_ を追加します。
-ルーティングの命名や形式は Rails に従っています。
+Let's define the action with which a user can fetch all frameworks.
 
-引用元 <cite>https://railsguides.jp/routing.html</cite>
+Create _src/controllers/api/v1/frameworks.ts_.
 
-<table>
-  <thead>
-    <tr>
-      <th>HTTP動詞</th>
-      <th>パス</th>
-      <th>コントローラ#アクション</th>
-      <th>目的</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>GET</td>
-      <td>/photos</td>
-      <td>photos#index</td>
-      <td>すべての写真の一覧を表示</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td>/photos/new</td>
-      <td>photos#new</td>
-      <td>写真を1つ作成するためのHTMLフォームを返す</td>
-    </tr>
-    <tr>
-      <td>POST</td>
-      <td>/photos</td>
-      <td>photos#create</td>
-      <td>写真を1つ作成する</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td>/photos/:id</td>
-      <td>photos#show</td>
-      <td>特定の写真を表示する</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td>/photos/:id/edit</td>
-      <td>photos#edit</td>
-      <td>写真編集用のHTMLフォームを1つ返す</td>
-    </tr>
-    <tr>
-      <td>PATCH/PUT</td>
-      <td>/photos/:id</td>
-      <td>photos#update</td>
-      <td>特定の写真を更新する</td>
-    </tr>
-    <tr>
-      <td>DELETE</td>
-      <td>/photos/:id</td>
-      <td>photos#destroy</td>
-      <td>特定の写真を削除する</td>
-    </tr>
-  </tbody>
+We follow routing conventions of Ruby on Rails.
+
+The table below is cited from <cite>https://guides.rubyonrails.org/routing.html</cite>
+
+<table class="responsive">
+<thead>
+<tr>
+<th>HTTP Verb</th>
+<th>Path</th>
+<th>Controller#Action</th>
+<th>Used for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>/photos</td>
+<td>photos#index</td>
+<td>display a list of all photos</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/photos/new</td>
+<td>photos#new</td>
+<td>return an HTML form for creating a new photo</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/photos</td>
+<td>photos#create</td>
+<td>create a new photo</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/photos/:id</td>
+<td>photos#show</td>
+<td>display a specific photo</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/photos/:id/edit</td>
+<td>photos#edit</td>
+<td>return an HTML form for editing a photo</td>
+</tr>
+<tr>
+<td>PATCH/PUT</td>
+<td>/photos/:id</td>
+<td>photos#update</td>
+<td>update a specific photo</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>/photos/:id</td>
+<td>photos#destroy</td>
+<td>delete a specific photo</td>
+</tr>
+</tbody>
 </table>
 
 ```typescript
@@ -520,48 +523,45 @@ export const frameworksIndex = async (req: Request, res: Response) => {
 };
 ```
 
-### 新規ルーティングの追加
+### Add new routing definition
 
-_src/config/path.ts_ にパスを追加します。
-アプリケーション上で参照されるパスはすべてこのファイルに記述するようにしています。
+Add a new path to _src/config/path.ts_ . All paths referenced in the application should be defined in this file.
 
 ```typescript
 /* src/config/path.ts */
 
 export const path = {
   ...
-  /* 追加 */
+  /* Add the line */
   frameworks: '/frameworks/'
 };
 ```
 
-_config/routes.ts_ の*defineRoutes()* にルート定義を追加します。
-アプリケーション上で参照されるルーティングとハンドラーの組み合わせはすべてこのファイルに記述するようにしています。
+Add a route definition to the _defineRoutes()_ function in _config/routes.ts_.
+All routes in the app should be defined in this file.
 
 ```typescript
 import { frameworksIndex } from 'controllers/api/v1/frameworks';
 
 export const defineRoutes = (app: Express) => {
   ...
-  /* 追加 */
+  /* Add the line */
   app.get(path.frameworks, frameworksIndex);
   ...
 };
 ```
 
-認証済みのユーザーに対してしか、コンテンツを見せたくない場合には requireAuth() ミドルウェア関数を frameworksIndex の前に適用します。
+If you want to show the contents only to authenticated users, apply requireAuth() middleware function before frameworksIndex handler.
 
-### 作成したルーティングを試してみる。
+### Give it a try
 
-それぞれ Terminal の別ウィンドウで実行します。
-
-curl コマンド を使って定義したルーティングを叩いてみます。
+Let's consume the defined route with curl command.
 
 ```shell
   curl -X GET http://localhost:3000/frameworks
 ```
 
-すると下記のようにシードで流し込んだフレームワーク一覧の JSON データが返ってきます。
+Then, frameworks data will be returned which was put by seed as following.
 
 ```shell
 {"data":
@@ -575,7 +575,7 @@ curl コマンド を使って定義したルーティングを叩いてみま�
 }
 ```
 
-### コントローラーのテストを記述する
+### Writing Controller Spec
 
 - src/controllers/api/v1/frameworks/spec.ts
 
@@ -625,8 +625,10 @@ describe(`Framework Controller`, () => {
 });
 ```
 
-下記コマンドでテストが走らせることができます。
+Testing can be done with the following command.
+ます。
 
-```shell
+````shell
 yarn run test
 ``` -->
+````
