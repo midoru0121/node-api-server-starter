@@ -626,7 +626,6 @@ describe(`Framework Controller`, () => {
 ```
 
 Testing can be done with the following command.
-ます。
 
 ```shell
 yarn run test
