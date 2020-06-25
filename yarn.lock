@@ -110,9 +110,9 @@
   version "1.4.28"
   resolved "https://registry.yarnpkg.com/@types/power-assert-formatter/-/power-assert-formatter-1.4.28.tgz#25b8fddb6322259c6b91c35338d39b0f8e524252"
 
-"@types/power-assert@^1.5.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@types/power-assert/-/power-assert-1.5.0.tgz#4cc43717127cd81901555f905c55f02938120dcb"
+"@types/power-assert@^1.5.3":
+  version "1.5.3"
+  resolved "https://registry.yarnpkg.com/@types/power-assert/-/power-assert-1.5.3.tgz#9e415f8d5703375c3d5d7bf912ca7ac334faf0c6"
   dependencies:
     "@types/empower" "*"
     "@types/power-assert-formatter" "*"
@@ -945,7 +945,7 @@ event-emitter@^0.3.5:
 
 event-stream@~3.3.0:
   version "3.3.4"
-  resolved "http://registry.npmjs.org/event-stream/-/event-stream-3.3.4.tgz#4ab4c9a0f5a54db9338b4c34d86bfce8f4b35571"
+  resolved "https://registry.npmjs.org/event-stream/-/event-stream-3.3.4.tgz#4ab4c9a0f5a54db9338b4c34d86bfce8f4b35571"
   dependencies:
     duplexer "~0.1.1"
     from "~0"
