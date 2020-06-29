@@ -37,7 +37,7 @@
     "@types/mocha": "^5.2.5",
     "@types/power-assert": "^1.5.3",
     "@types/sequelize": "^4.27.24",
-    "@types/supertest": "^2.0.5",
+    "@types/supertest": "^2.0.10",
     "@types/winston": "^2.4.4",
     "mocha": "^5.2.0",
     "nodemon": "^1.18.3",
