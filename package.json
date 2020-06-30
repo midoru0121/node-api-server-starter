@@ -42,7 +42,7 @@
     "mocha": "^5.2.0",
     "nodemon": "^1.18.3",
     "power-assert": "^1.6.0",
-    "prettier": "^1.14.2",
+    "prettier": "^2.0.5",
     "sequelize-cli": "^4.1.0",
     "supertest": "^3.1.0",
     "ts-node": "^8.10.2",
