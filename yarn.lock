@@ -122,9 +122,9 @@
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.2.tgz#fa8e1ad1d474688a757140c91de6dace6f4abc8d"
 
-"@types/sequelize@^4.27.24":
-  version "4.27.24"
-  resolved "https://registry.yarnpkg.com/@types/sequelize/-/sequelize-4.27.24.tgz#7d593c062c368f570c68b0217f5c1d4c892ead48"
+"@types/sequelize@^4.28.9":
+  version "4.28.9"
+  resolved "https://registry.yarnpkg.com/@types/sequelize/-/sequelize-4.28.9.tgz#64d0fad07de2f30ef11003a8c2ef5ac0321de115"
   dependencies:
     "@types/bluebird" "*"
     "@types/continuation-local-storage" "*"
