@@ -41,7 +41,7 @@
     "@types/winston": "^2.4.4",
     "mocha": "^5.2.0",
     "nodemon": "^1.18.3",
-    "power-assert": "^1.6.0",
+    "power-assert": "^1.6.1",
     "prettier": "^2.0.5",
     "sequelize-cli": "^4.1.0",
     "supertest": "^3.1.0",
