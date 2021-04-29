@@ -1,0 +1,27 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "20:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: sequelize
+    versions:
+    - 6.5.0
+    - 6.5.1
+    - 6.6.1
+  - dependency-name: "@types/mocha"
+    versions:
+    - 8.2.0
+    - 8.2.1
+  - dependency-name: tslib
+    versions:
+    - 2.1.0
+  - dependency-name: "@types/bcrypt"
+    versions:
+    - 3.0.0
+  - dependency-name: "@types/jsonwebtoken"
+    versions:
+    - 8.5.0
